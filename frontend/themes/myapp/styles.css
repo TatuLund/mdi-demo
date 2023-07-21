@@ -1,0 +1,75 @@
+@import url('./main-layout.css');
+@import url('./twin-col-select.css');
+
+.demo-view {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    max-width: unset !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+vaadin-connection-indicator {
+    position: fixed;
+    z-index: 251;
+    top: 50%;
+    width: 20%;
+    left: 40%;
+}
+
+.v-loading-indicator {
+    position: unset !important;
+    height: 10px;
+    z-index: unset !important;
+    left: unset !important;
+    top: unset !important;
+    right: unset !important;
+    background: var(--lumo-primary-color-50pct);
+    border-radius: var(--lumo-border-radius-m);
+    border: 1px solid var(--lumo-primary-color);
+}
+
+vaadin-dialog-overlay.window::part(overlay) {
+	position: absolute;
+}
+
+vaadin-dialog-overlay.window-mini::part(overlay) {
+	position: absolute;
+	width: 300px;
+	height: unset;
+}
+
+vaadin-dialog-overlay.window-mini::part(content) {
+	display: none;
+}
+
+vaadin-dialog-overlay.window {
+	top: var(--lumo-space-xs);	
+	bottom: var(--lumo-space-xs);	
+	left: var(--lumo-space-xs);
+	right: var(--lumo-space-xs);	
+}
+
+vaadin-dialog-overlay.window-mini {
+	top: var(--lumo-space-xs);	
+	bottom: var(--lumo-space-xs);	
+	left: var(--lumo-space-xs);
+	right: var(--lumo-space-xs);
+/* 	align-items: end; */
+/* 	flex-direction: row; */
+}
+
+vaadin-dialog-overlay.window::part(header) {
+	border-bottom:  1px solid var(--lumo-contrast-20pct);
+	padding-top: 0px;	
+	padding-bottom: 0px;	
+    background: var(--lumo-contrast-5pct);
+}
+
+vaadin-dialog-overlay.window-mini::part(header) {
+	border-bottom:  1px solid var(--lumo-contrast-20pct);
+	padding-top: 0px;	
+	padding-bottom: 0px;	
+    background: var(--lumo-contrast-5pct);
+}
