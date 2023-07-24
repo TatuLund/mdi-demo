@@ -32,12 +32,14 @@ vaadin-connection-indicator {
 
 vaadin-dialog-overlay.window::part(overlay) {
 	position: absolute;
+    box-shadow: 0 0 0 1px var(--lumo-shade-5pct), var(--lumo-box-shadow-s);	
 }
 
 vaadin-dialog-overlay.window-mini::part(overlay) {
 	position: absolute;
 	width: 300px;
 	height: unset;
+	box-shadow: unset;
 }
 
 vaadin-dialog-overlay.window-mini::part(content) {
@@ -56,8 +58,6 @@ vaadin-dialog-overlay.window-mini {
 	bottom: var(--lumo-space-xs);	
 	left: var(--lumo-space-xs);
 	right: var(--lumo-space-xs);
-/* 	align-items: end; */
-/* 	flex-direction: row; */
 }
 
 vaadin-dialog-overlay.window::part(header) {

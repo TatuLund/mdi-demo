@@ -61,7 +61,7 @@ public class Window extends Dialog {
 					        """).then(ind -> {
 				zIndex = ind.asString();
 				getElement().executeJs("""
-						return this._overlayElement.style.zIndex=0;
+						return this._overlayElement.style.zIndex=1;
 						        """);
 			});
 		}
