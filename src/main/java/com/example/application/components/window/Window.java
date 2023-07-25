@@ -54,8 +54,7 @@ public class Window extends Dialog {
                 ButtonVariant.LUMO_TERTIARY);
         DomListenerRegistration minReg = minimizeButton.getElement()
                 .addEventListener("click", e -> {
-                    mini = !mini;
-                    if (mini) {
+                    if (!mini) {
                         minimize();
                     } else {
                         restore();
@@ -141,6 +140,7 @@ public class Window extends Dialog {
         if (wasMini) {
             minimize();
             wasMini = false;
+            max = false;
             return;
         }
         if (!max) {
@@ -169,6 +169,7 @@ public class Window extends Dialog {
     }
 
     public void minimize() {
+        mini = !mini;
         setClassName("window-mini");
         setDraggable(false);
         setResizable(false);
@@ -184,6 +185,11 @@ public class Window extends Dialog {
                                 """);
             });
         }
+        updateTop();
+    }
+
+    public void bringToFront() {
+        getElement().executeJs("this._overlayElement.bringToFront()");
         updateTop();
     }
 
