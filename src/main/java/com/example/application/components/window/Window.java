@@ -169,7 +169,8 @@ public class Window extends Dialog {
     }
 
     public void minimize() {
-        mini = !mini;
+        mini = true;
+        wasMini = false;
         setClassName("window-mini");
         setDraggable(false);
         setResizable(false);
@@ -194,6 +195,7 @@ public class Window extends Dialog {
     }
 
     public void restore() {
+        mini = false;
         setClassName("window");
         setDraggable(true);
         setResizable(true);
