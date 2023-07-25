@@ -21,7 +21,6 @@ public class Window extends Dialog {
     Button closeButton = new Button(VaadinIcon.CLOSE.create());
     Button minimizeButton = new Button(VaadinIcon.CARET_DOWN.create());
     Button maximizeButton = new Button(VaadinIcon.EXPAND_SQUARE.create());
-    private String minOffset;
     private String height;
     private String width;
     private String oldTop;
@@ -31,13 +30,12 @@ public class Window extends Dialog {
     private boolean max;
     private boolean wasMini;
 
-    public Window(String title, String minOffset, String left, String top,
+    public Window(String title, String left, String top,
             String width, String height) {
         this.top = top;
         this.left = left;
         this.height = height;
         this.width = width;
-        this.minOffset = minOffset;
         setClassName("window");
         setModal(false);
         setResizable(true);
@@ -69,6 +67,7 @@ public class Window extends Dialog {
                 });
         maxReg.addEventData("event.stopPropagation()");
         H3 titleSpan = new H3();
+        titleSpan.addClassName("window-title");
         titleSpan.setText(title);
         titleSpan.addClassNames(LumoUtility.TextColor.PRIMARY,
                 LumoUtility.FontSize.MEDIUM, LumoUtility.FontWeight.MEDIUM);
@@ -174,7 +173,7 @@ public class Window extends Dialog {
         setClassName("window-mini");
         setDraggable(false);
         setResizable(false);
-        doSetPosition(minOffset, "calc(100% - 40px)");
+        stackMinified();
         minimizeButton.setIcon(VaadinIcon.CARET_UP.create());
         if (isOpened()) {
             getElement().executeJs("""
@@ -204,6 +203,7 @@ public class Window extends Dialog {
         setWidth(width);
         setHeight(height);
         updateTop();
+        stackMinified();
     }
 
     public void setPosition(String left, String top) {
@@ -231,5 +231,19 @@ public class Window extends Dialog {
             restore();
         }
         updateTop();
+    }
+
+    private void stackMinified() {
+        getElement().executeJs("""
+                const dialogs = document.getElementsByTagName('vaadin-dialog-overlay');
+                var left=0;
+                for (let i=0;i<dialogs.length;i++) {
+                    if (dialogs[i].classList.contains('window-mini')) {
+                        dialogs[i].$.overlay.style.left=left+'px';
+                        dialogs[i].$.overlay.style.top='calc(100% - 40px)';
+                        left = left + 300;
+                    }
+                }
+                        """);
     }
 }

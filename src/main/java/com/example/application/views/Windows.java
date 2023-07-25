@@ -15,10 +15,10 @@ public class Windows {
     Map<String, Window> windows = new HashMap<>();
 
     public Windows() {
-        Window win1 = new Window("Window 1", "0px", "10%", "0px", "40%", "95%");
-        Window win2 = new Window("Window 2", "300px", "50%", "0px", "50%",
+        Window win1 = new Window("Window 1", "10%", "0px", "40%", "95%");
+        Window win2 = new Window("Window 2: With a long name", "50%", "0px", "50%",
                 "50%");
-        Window win3 = new Window("Window 3", "600px", "50%", "50%", "50%",
+        Window win3 = new Window("Window 3", "50%", "50%", "50%",
                 "45%");
 
         windows.put("win1", win1);

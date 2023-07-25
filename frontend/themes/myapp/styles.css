@@ -78,3 +78,10 @@ vaadin-dialog-overlay.window-mini::part(header) {
 	padding-bottom: 0px;	
     background: var(--lumo-contrast-5pct);
 }
+
+vaadin-dialog-overlay.window-mini h3.window-title {
+    text-overflow: ellipsis;
+    width: 120px;
+    text-wrap: nowrap;
+    overflow: hidden;
+}
