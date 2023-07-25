@@ -20,9 +20,16 @@ public class Window extends Dialog {
     private String zIndex;
     Button closeButton = new Button(VaadinIcon.CLOSE.create());
     Button minimizeButton = new Button(VaadinIcon.CARET_DOWN.create());
+    Button maximizeButton = new Button(VaadinIcon.EXPAND_SQUARE.create());
     private String minOffset;
     private String height;
     private String width;
+    private String oldTop;
+    private String oldLeft;
+    private String oldWidth;
+    private String oldHeight;
+    private boolean max;
+    private boolean wasMini;
 
     public Window(String title, String minOffset, String left, String top,
             String width, String height) {
@@ -45,7 +52,7 @@ public class Window extends Dialog {
         });
         minimizeButton.addThemeVariants(ButtonVariant.LUMO_SMALL,
                 ButtonVariant.LUMO_TERTIARY);
-        DomListenerRegistration reg = minimizeButton.getElement()
+        DomListenerRegistration minReg = minimizeButton.getElement()
                 .addEventListener("click", e -> {
                     mini = !mini;
                     if (mini) {
@@ -54,13 +61,19 @@ public class Window extends Dialog {
                         restore();
                     }
                 });
-        reg.addEventData("event.stopPropagation()");
+        minReg.addEventData("event.stopPropagation()");
+        maximizeButton.addThemeVariants(ButtonVariant.LUMO_SMALL,
+                ButtonVariant.LUMO_TERTIARY);
+        DomListenerRegistration maxReg = maximizeButton.getElement()
+                .addEventListener("click", e -> {
+                    maximize();
+                });
+        maxReg.addEventData("event.stopPropagation()");
         H3 titleSpan = new H3();
         titleSpan.setText(title);
         titleSpan.addClassNames(LumoUtility.TextColor.PRIMARY,
                 LumoUtility.FontSize.MEDIUM, LumoUtility.FontWeight.MEDIUM);
-        header.add(minimizeButton, titleSpan, closeButton);
-
+        header.add(minimizeButton, titleSpan, closeButton, maximizeButton);
     }
 
     private void updateTop() {
@@ -124,8 +137,41 @@ public class Window extends Dialog {
         }
     }
 
+    public void maximize() {
+        if (wasMini) {
+            minimize();
+            wasMini = false;
+            return;
+        }
+        if (!max) {
+            maximizeButton.setIcon(VaadinIcon.COMPRESS_SQUARE.create());
+            max = true;
+            if (mini) {
+                wasMini = true;
+                restore();
+            }
+            oldTop = top;
+            oldLeft = left;
+            oldWidth = width;
+            oldHeight = height;
+            doSetPosition("0px", "0px");
+            setWidth("99.9%");
+            setHeight("99.9%");
+        } else {
+            wasMini = false;
+            max = false;
+            maximizeButton.setIcon(VaadinIcon.EXPAND_SQUARE.create());
+            doSetPosition(oldLeft, oldTop);
+            setWidth(oldWidth);
+            setHeight(oldHeight);
+        }
+        updateTop();
+    }
+
     public void minimize() {
         setClassName("window-mini");
+        setDraggable(false);
+        setResizable(false);
         doSetPosition(minOffset, "calc(100% - 40px)");
         minimizeButton.setIcon(VaadinIcon.CARET_UP.create());
         if (isOpened()) {
@@ -143,8 +189,12 @@ public class Window extends Dialog {
 
     public void restore() {
         setClassName("window");
+        setDraggable(true);
+        setResizable(true);
         minimizeButton.setIcon(VaadinIcon.CARET_DOWN.create());
         doSetPosition(left, top);
+        setWidth(width);
+        setHeight(height);
         updateTop();
     }
 
