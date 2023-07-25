@@ -66,17 +66,17 @@ public class Window extends Dialog {
     private void updateTop() {
         getElement().executeJs(
                 """
-                                    const dialogs = document.getElementsByTagName('vaadin-dialog-overlay');
+                        const dialogs = document.getElementsByTagName('vaadin-dialog-overlay');
                         var max = 0;
-                           var maxInd = 0;
+                        var maxInd = 0;
                         for (let i=0;i<dialogs.length;i++) {
                             if (dialogs[i].classList.contains('window')) {
-                        	    dialogs[i].classList.remove('top');
+                                dialogs[i].classList.remove('top');
                                 const ind = Number(dialogs[i].style.zIndex);
                                 if (ind > maxInd) {
                                     maxInd = ind;
                                     max = i;
-                                 }
+                                }
                             }
                         }
                         dialogs[max].classList.add('top');
@@ -93,7 +93,7 @@ public class Window extends Dialog {
                             if (!overlay.getAttribute('class').includes('mini')) {
                                 const dialogs = document.getElementsByTagName('vaadin-dialog-overlay');
                                 var max = 0;
-                                 	var maxInd = 0;
+                                var maxInd = 0;
                                 for (let i=0;i<dialogs.length;i++) {
                                     if (dialogs[i].classList.contains('window')) {
                             	        dialogs[i].classList.remove('top');
@@ -105,10 +105,10 @@ public class Window extends Dialog {
                                     }
                                 }
                                 dialogs[max].classList.add('top');
-                        		            const rect = overlay.$.overlay.getBoundingClientRect();
-                                   $0.$server.updatePosition(rect);
-                          	        }
-                           });
+                                const rect = overlay.$.overlay.getBoundingClientRect();
+                                $0.$server.updatePosition(rect);
+                            }
+                        });
                         """,
                 getElement());
     }
