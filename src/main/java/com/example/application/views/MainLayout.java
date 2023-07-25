@@ -60,18 +60,15 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         nav = new AppNav();
 
-        AppNavItem win1 = new AppNavItem("Window 1",
-                "windows/win1",
+        AppNavItem win1 = new AppNavItem("Window 1", "windows/win1",
                 LineAwesomeIcon.WINDOWS.create());
         nav.addItem(win1);
 
-        AppNavItem win2 = new AppNavItem("Window 2",
-                "windows/win2",
+        AppNavItem win2 = new AppNavItem("Window 2", "windows/win2",
                 LineAwesomeIcon.WINDOWS.create());
         nav.addItem(win2);
 
-        AppNavItem win3 = new AppNavItem("Window 3",
-                "windows/win3",
+        AppNavItem win3 = new AppNavItem("Window 3", "windows/win3",
                 LineAwesomeIcon.WINDOWS.create());
         nav.addItem(win3);
 
