@@ -67,6 +67,11 @@ vaadin-dialog-overlay.window::part(header) {
     background: var(--lumo-contrast-5pct);
 }
 
+vaadin-dialog-overlay.top::part(header) {
+    background: var(--lumo-primary-color-10pct);
+    color: var(--lumo-primary-contrast-color);
+}
+
 vaadin-dialog-overlay.window-mini::part(header) {
 	border-bottom:  1px solid var(--lumo-contrast-20pct);
 	padding-top: 0px;	
