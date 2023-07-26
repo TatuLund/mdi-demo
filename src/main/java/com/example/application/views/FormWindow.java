@@ -10,7 +10,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 
 @UIScope
 @Component
-@WindowContent(value ="form", title = "Form", top = "50%", left = "10%", height = "50%")
+@WindowContent(value ="form", title = "Form", top = "50%", left = "10%", height = "50%", width = "90%")
 public class FormWindow extends FormLayout {
 
     DatePicker datePicker = new DatePicker("Date");
