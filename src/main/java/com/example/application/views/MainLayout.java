@@ -2,6 +2,7 @@ package com.example.application.views;
 
 import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
+import com.example.application.components.window.Window;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -26,11 +27,14 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
     private H2 viewTitle;
     private AppNav nav;
     private Anchor anchor;
+    private WindowFactory windows;
 
-    public MainLayout() {
+    public MainLayout(WindowFactory windows) {
+        this.windows = windows;
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
+        setDrawerOpened(false);
     }
 
     private void addHeaderContent() {
@@ -45,7 +49,7 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("Add-ons");
+        H1 appName = new H1("MDI Demo");
         appName.addClassNames(LumoUtility.FontSize.LARGE,
                 LumoUtility.Margin.NONE);
         Header header = new Header(appName);
@@ -60,17 +64,12 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         nav = new AppNav();
 
-        AppNavItem win1 = new AppNavItem("Window 1", "windows/win1",
-                LineAwesomeIcon.WINDOWS.create());
-        nav.addItem(win1);
-
-        AppNavItem win2 = new AppNavItem("Window 2", "windows/win2",
-                LineAwesomeIcon.WINDOWS.create());
-        nav.addItem(win2);
-
-        AppNavItem win3 = new AppNavItem("Window 3", "windows/win3",
-                LineAwesomeIcon.WINDOWS.create());
-        nav.addItem(win3);
+        windows.getWindows().forEach(name -> {
+            Window window = windows.getWindow(name);
+            AppNavItem win = new AppNavItem(window.getHeaderTitle(),
+                    "windows/" + name, LineAwesomeIcon.WINDOWS.create());
+            nav.addItem(win);
+        });
 
         return nav;
     }

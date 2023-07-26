@@ -17,9 +17,9 @@ public class WindowsView extends Div
         implements HasUrlParameter<String>, AfterNavigationObserver {
 
     private String param;
-    private Windows windows;
+    private WindowFactory windows;
 
-    public WindowsView(Windows windows) {
+    public WindowsView(WindowFactory windows) {
         this.windows = windows;
     }
 

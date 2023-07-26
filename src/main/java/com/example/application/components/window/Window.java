@@ -14,13 +14,13 @@ import elemental.json.JsonObject;
 import elemental.json.JsonValue;
 
 public class Window extends Dialog {
-    boolean mini;
-    String left = "0px";
-    String top = "0px";
+    private boolean mini;
+    private String left = "0px";
+    private String top = "0px";
     private String zIndex;
-    Button closeButton = new Button(VaadinIcon.CLOSE.create());
-    Button minimizeButton = new Button(VaadinIcon.CARET_DOWN.create());
-    Button maximizeButton = new Button(VaadinIcon.EXPAND_SQUARE.create());
+    private Button closeButton = new Button(VaadinIcon.CLOSE.create());
+    private Button minimizeButton = new Button(VaadinIcon.CARET_DOWN.create());
+    private Button maximizeButton = new Button(VaadinIcon.EXPAND_SQUARE.create());
     private String height;
     private String width;
     private String oldTop;
@@ -29,6 +29,7 @@ public class Window extends Dialog {
     private String oldHeight;
     private boolean max;
     private boolean wasMini;
+    private String title;
 
     public Window(String title, String left, String top,
             String width, String height) {
@@ -36,6 +37,7 @@ public class Window extends Dialog {
         this.left = left;
         this.height = height;
         this.width = width;
+        this.title = title;
         setClassName("window");
         setModal(false);
         setResizable(true);
@@ -231,6 +233,11 @@ public class Window extends Dialog {
             restore();
         }
         updateTop();
+    }
+
+    @Override
+    public String getHeaderTitle() {
+        return title;
     }
 
     private void stackMinified() {
