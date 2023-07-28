@@ -33,7 +33,6 @@ public class GridWindow extends HorizontalLayout {
                 .collect(Collectors.toList());
 
         Grid<String> grid1 = new Grid<>();
-        grid1.addColumn(i -> i.toString());
         grid1.addColumn(LitRenderer.<String> of(
                 "<span><b style='color: blue'>${item.number}</b></span>")
                 .withProperty("number", i -> i.toString()));
