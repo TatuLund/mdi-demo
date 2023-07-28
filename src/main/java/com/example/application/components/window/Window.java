@@ -2,6 +2,7 @@ package com.example.application.components.window;
 
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ClientCallable;
+import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -20,7 +21,8 @@ public class Window extends Dialog {
     private String zIndex;
     private Button closeButton = new Button(VaadinIcon.CLOSE.create());
     private Button minimizeButton = new Button(VaadinIcon.CARET_DOWN.create());
-    private Button maximizeButton = new Button(VaadinIcon.EXPAND_SQUARE.create());
+    private Button maximizeButton = new Button(
+            VaadinIcon.EXPAND_SQUARE.create());
     private String height;
     private String width;
     private String oldTop;
@@ -31,8 +33,8 @@ public class Window extends Dialog {
     private boolean wasMini;
     private String title;
 
-    public Window(String title, String left, String top,
-            String width, String height) {
+    public Window(String title, String left, String top, String width,
+            String height) {
         this.top = top;
         this.left = left;
         this.height = height;
@@ -97,7 +99,7 @@ public class Window extends Dialog {
     }
 
     @Override
-    public void onAttach(AttachEvent attach) {
+    protected void onAttach(AttachEvent attach) {
         super.onAttach(attach);
         getElement().executeJs(
                 """
@@ -241,16 +243,17 @@ public class Window extends Dialog {
     }
 
     private void stackMinified() {
-        getElement().executeJs("""
-                const dialogs = document.getElementsByTagName('vaadin-dialog-overlay');
-                var left=0;
-                for (let i=0;i<dialogs.length;i++) {
-                    if (dialogs[i].classList.contains('window-mini')) {
-                        dialogs[i].$.overlay.style.left=left+'px';
-                        dialogs[i].$.overlay.style.top='calc(100% - 40px)';
-                        left = left + 300;
-                    }
-                }
-                        """);
+        getElement().executeJs(
+                """
+                        const dialogs = document.getElementsByTagName('vaadin-dialog-overlay');
+                        var left=0;
+                        for (let i=0;i<dialogs.length;i++) {
+                            if (dialogs[i].classList.contains('window-mini')) {
+                                dialogs[i].$.overlay.style.left=left+'px';
+                                dialogs[i].$.overlay.style.top='calc(100% - 40px)';
+                                left = left + 300;
+                            }
+                        }
+                                """);
     }
 }

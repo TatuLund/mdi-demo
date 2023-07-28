@@ -6,7 +6,6 @@ import com.example.application.components.window.Window;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Footer;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
@@ -26,7 +25,6 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
 
     private H2 viewTitle;
     private AppNav nav;
-    private Anchor anchor;
     private WindowFactory windows;
 
     public MainLayout(WindowFactory windows) {
@@ -94,10 +92,6 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
                 AppNavItem item = (AppNavItem) comp;
                 if (path.equals(item.getPath())) {
                     item.getElement().setAttribute("active", "true");
-                    String href = ComponentUtil.getData(item, String.class);
-                    if (href != null) {
-                        anchor.setHref(href);
-                    }
                 } else {
                     item.getElement().removeAttribute("active");
                 }
