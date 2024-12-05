@@ -1,9 +1,6 @@
 package com.example.application.views;
 
-import com.example.application.components.appnav.AppNav;
-import com.example.application.components.appnav.AppNavItem;
 import com.example.application.components.window.Window;
-import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.Footer;
@@ -11,6 +8,8 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.orderedlayout.Scroller;
+import com.vaadin.flow.component.sidenav.SideNav;
+import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.PageTitle;
@@ -24,7 +23,7 @@ import org.vaadin.lineawesome.LineAwesomeIcon;
 public class MainLayout extends AppLayout implements AfterNavigationObserver {
 
     private H2 viewTitle;
-    private AppNav nav;
+    private SideNav nav;
     private WindowFactory windows;
 
     public MainLayout(WindowFactory windows) {
@@ -57,14 +56,14 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
         addToDrawer(header, scroller, createFooter());
     }
 
-    private AppNav createNavigation() {
+    private SideNav createNavigation() {
         // AppNav is not yet an official component.
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
-        nav = new AppNav();
+        nav = new SideNav();
 
         windows.getWindows().forEach(name -> {
             Window window = windows.getWindow(name);
-            AppNavItem win = new AppNavItem(window.getHeaderTitle(),
+            SideNavItem win = new SideNavItem(window.getHeaderTitle(),
                     "windows/" + name, LineAwesomeIcon.WINDOWS.create());
             nav.addItem(win);
         });
@@ -88,8 +87,8 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
         String path = event.getLocation().getPath();
         viewTitle.setText(getCurrentPageTitle());
         nav.getChildren().forEach(comp -> {
-            if (comp instanceof AppNavItem) {
-                AppNavItem item = (AppNavItem) comp;
+            if (comp instanceof SideNavItem) {
+                SideNavItem item = (SideNavItem) comp;
                 if (path.equals(item.getPath())) {
                     item.getElement().setAttribute("active", "true");
                 } else {

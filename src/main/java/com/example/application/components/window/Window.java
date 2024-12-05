@@ -2,7 +2,6 @@ package com.example.application.components.window;
 
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ClientCallable;
-import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -219,10 +218,13 @@ public class Window extends Dialog {
     }
 
     private void doSetPosition(String left, String top) {
-        getElement().executeJs("""
-                this._overlayElement.$.overlay.style.left=$0;
-                this._overlayElement.$.overlay.style.top=$1;
-                        """, left, top);
+        setTop(top);
+        setLeft(left);
+// With Vaadin versions prior to 24.6 use this:
+//        getElement().executeJs("""
+//                this._overlayElement.$.overlay.style.left=$0;
+//                this._overlayElement.$.overlay.style.top=$1;
+//                        """, left, top);
     }
 
     @Override
